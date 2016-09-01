@@ -15,13 +15,10 @@ int modeHandler = 0;
 void setup()
 {
   minim = new Minim(this);
-  player = minim.loadFile(" ");
-  if(modeHandler == 1)
-  {
+  player = minim.loadFile("CuilTheory.mp3");
     player.play();
-  }
   
-  particles = new Particle[50];
+  particles = new Particle[100];
   for (int i=0; i<particles.length; i++)
   {
     particles[i]=new NormalParticle();
@@ -51,6 +48,7 @@ void draw()
     ts--;
   }
 }
+
 
 void mousePressed()
 {
@@ -88,7 +86,7 @@ class NormalParticle implements Particle
   {
     x = x+(double)((Math.cos((float)angle)))+speed;
     y = y+(double)((Math.sin((float)angle)))-speed;
-    size+=0.03;
+    //size+=0.03;
   }
 }
 interface Particle
