@@ -16,7 +16,7 @@ void setup()
 {
   minim = new Minim(this);
   player = minim.loadFile("CuilTheory.mp3");
-    player.play();
+   player.play();
   
   particles = new Particle[100];
   for (int i=0; i<particles.length; i++)
