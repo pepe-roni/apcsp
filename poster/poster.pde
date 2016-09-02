@@ -52,6 +52,7 @@ void draw()
   if (timer == 36000)
   {
     modeHandler = 0;
+    timer = 0;
   }
   
   if (modeHandler == 1)
