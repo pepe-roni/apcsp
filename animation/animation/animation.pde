@@ -61,7 +61,7 @@ class Windows
    fill(#E56033);
    rect(width/2-50-(float)alpha, height/2-50,75+(float)alpha*1.5,75+(float)alpha*1.5);
    fill(#81F568);
-   rect(width/2+25+(float)alpha, height/2-50,75+(float)alpha*1.2,75+(float)alpha*1.2);
+   rect(width/2+25+(float)alpha, height/2-50+(float)alpha,75+(float)alpha*1.2,75+(float)alpha*1.2);
    fill(#62A4FF);
    rect(width/2-50+(float)alpha, height/2+25,75,75);
    fill(#FCE466);
@@ -82,7 +82,7 @@ class Windows
      loading = width/2-110;
    }
    else
-     loading=loading+15;
+     loading=loading+25;
   }
   
   public void crashExe()
