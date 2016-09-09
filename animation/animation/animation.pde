@@ -17,7 +17,7 @@ void setup()
   player = minim.loadFile("tf.mp3");
   size(800,600);
   noStroke();
-  frameRate(15);
+  frameRate(10);
   rectMode(CENTER);
   textMode(CENTER);
 }
@@ -27,12 +27,18 @@ void draw()
  fill(0,60,205,90);
  rect(0,0,10000,10000);
  xp.show();
- xp.setAlpha((Math.random()*75)-35);
+ if(xp.getCrash())
+ { 
+   xp.setAlpha((Math.random()*75)-35);   
+ }
+ else
+  xp.setAlpha(0);
 }
 
 void mousePressed()
 {
   xp.crashExe();
+  player.play();
 }
 
 class Windows
@@ -53,36 +59,47 @@ class Windows
   {
    rotate(rVar);
    fill(#E56033);
-   rect(width/2-50, height/2-50,75,75);
+   rect(width/2-50-(float)alpha, height/2-50,75+(float)alpha*1.5,75+(float)alpha*1.5);
    fill(#81F568);
-   rect(width/2+25, height/2-50,75,75);
+   rect(width/2+25+(float)alpha, height/2-50,75+(float)alpha*1.2,75+(float)alpha*1.2);
    fill(#62A4FF);
-   rect(width/2-50, height/2+25,75,75);
+   rect(width/2-50+(float)alpha, height/2+25,75,75);
    fill(#FCE466);
-   rect(width/2+25, height/2+25,75,75);
-   textSize(20);
+   rect(width/2+25, height/2+25-(float)alpha,75,75);
+   textSize(abs(20+(float)alpha));
    text("Windows xp", width/2+(float)alpha, height/2+150+(float)alpha);
    stroke(255);
    noFill();
-   rect(width/2,height/2+250,200,25);
+   rect(width/2,height/2+250,267,25);
    fill(0,0,255);
    rect(loading, height/2+250,40,25);
-   if(loading == 500)
+   if(crash && loading < 500)
+   {
+     loading=loading+100;
+   }
+   else if(loading > 500)
    {
      loading = width/2-110;
    }
    else
-     loading++;
+     loading=loading+15;
   }
   
   public void crashExe()
   {
-    rVar = (int)(Math.random()*20);
+    rVar = (float)(Math.random()*1)-1;
     player.play();
     crash = true;
   }
+  
   public void setAlpha(double data)
   {
     alpha = data;
   }
+  
+  public boolean getCrash()
+  {
+   return crash; 
+  }
+  
 }
