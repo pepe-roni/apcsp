@@ -17,19 +17,20 @@ void setup()
   player = minim.loadFile("tf.mp3");
   size(800,600);
   noStroke();
-  frameRate(10);
+  //frameRate(10);
   rectMode(CENTER);
   textMode(CENTER);
+  noCursor();
 }
 
 void draw()
 {
- fill(0,60,205,90);
+ fill(xp.getAlpha(),30);
  rect(0,0,10000,10000);
  xp.show();
  if(xp.getCrash())
  { 
-   xp.setAlpha((Math.random()*75)-35);   
+   xp.setAlpha((Math.random()*350)-175);   
  }
  else
   xp.setAlpha(0);
@@ -61,13 +62,14 @@ class Windows
    fill(#E56033);
    rect(width/2-50-(float)alpha, height/2-50,75+(float)alpha*1.5,75+(float)alpha*1.5);
    fill(#81F568);
-   rect(width/2+25+(float)alpha, height/2-50+(float)alpha,75+(float)alpha*1.2,75+(float)alpha*1.2);
+   rect(width/2+25+(float)alpha, height/2-50+(float)alpha,75+(float)alpha*1.4,75+(float)alpha*1.2);
    fill(#62A4FF);
    rect(width/2-50+(float)alpha, height/2+25,75,75);
    fill(#FCE466);
-   rect(width/2+25, height/2+25-(float)alpha,75,75);
+   rect(width/2+25, height/2+25-(float)alpha*1.2,75,75);
    textSize(abs(20+(float)alpha));
    text("Windows xp", width/2+(float)alpha, height/2+150+(float)alpha);
+   text("pls dont click if u hav epilpsy",50,50);
    stroke(255);
    noFill();
    rect(width/2,height/2+250,267,25);
@@ -82,12 +84,12 @@ class Windows
      loading = width/2-110;
    }
    else
-     loading=loading+25;
+     loading=loading+15;
   }
   
   public void crashExe()
   {
-    rVar = (float)(Math.random()*1)-1;
+    rVar = (float)(Math.random()*0.5)-0.5;
     player.play();
     crash = true;
   }
@@ -95,6 +97,12 @@ class Windows
   public void setAlpha(double data)
   {
     alpha = data;
+  }
+  
+  public int getAlpha()
+  {
+    double tempA = alpha;
+    return (int)tempA;
   }
   
   public boolean getCrash()
