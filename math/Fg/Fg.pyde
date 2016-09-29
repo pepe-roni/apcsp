@@ -1,9 +1,10 @@
 def setup():
     println("Uses formula Vf^2=Vi^2+2aDx to find maximum height of a projectile")
-    Vi = [0.23,5,15.2,40,90.56]
-    dx = [0,0,0,0,0]
+    Vi = [0.8,5,15.2,40,90.56]
     for i in range(len(Vi)):
-        sq(Vi[i])+
+        dx=(sq(Vi[i])/19.6)
+        print Vi[i] 
+        print str(dx) +"m"
 
 def draw():
     pass
