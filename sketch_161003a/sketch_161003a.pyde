@@ -1,6 +1,6 @@
 import math
 def setup():
-    order = [1,49,50,51,56,199,200,201,202,203,204,205,206]
+    order = [1,49,50,51,56,199,200,201,202,303,454,605,709]
     for i in range (len(order)):
         buses = order[i]/50
         taxis = math.ceil((float(order[i]-(50*buses)))/5)
