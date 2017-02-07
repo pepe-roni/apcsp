@@ -21,13 +21,14 @@ local background = display.newImage("/image/ZsfUJx8.jpg")
 local ball = display.newImage("/image/glassorb1.png")
 	ball.x = display.contentCenterX
 	ball.y = display.contentCenterY - 50
+	ball:scale(1.1,1.1)
 	ball.alpha = 0
-local meme = display.newText(" ",display.contentCenterX,display.contentCenterY-50,"/fonts/Roboto-LightItalic.ttf")
-
+local meme = display.newText(" ",display.contentCenterX,display.contentCenterY-50,"/fonts/Roboto-Italic.ttf")
+meme:scale(1.2,1.2)
 local function afterclick()
 	transition.to(pretext, {time = 300, alpha =0})
 	transition.to(preRec, {time = 500, alpha = 0})
-	transition.to(background, {time = 1500, alpha = 1})
+	transition.to(background, {time = 1500, alpha = 0.75})
 	transition.to(ball, {time = 1500, alpha = 0.75 })
 	local stuff = {"It is certain","It is decidedly so",
 "Without a doubt",
@@ -49,10 +50,8 @@ local function afterclick()
 "Outlook not so good",
 "Very doubtful"}
 	meme.alpha = 1
-	meme:setFillColor(1,0.45,0.3)
-	meme.fontSize = 25
+	meme:setFillColor(1,1,0.5)
 	meme.text = stuff[math.random(1,20)]
-
 end
 
 Runtime:addEventListener("tap", afterclick)
