@@ -1,16 +1,15 @@
 local physics = require ("physics")
 physics.start()
+
 local preRec = display.newImage("/image/cyan_texture_by_ladyoftheapocalypse-d9btc9w.jpg")
 	preRec.x = display.contentCenterX
 	preRec.y = display.contentCenterY
 	preRec.xScale = 1.2
 	preRec.yScale = 1.2
 	preRec.alpha = 0.8 
-local pretext = display.newText("Click to display stuff.",
-	display.contentCenterX,display.contentCenterY,"/fonts/Roboto-LightItalic.ttf" )
-	pretext:scale(1.2,1.2)
-	pretext.x = display.contentCenterX
-	pretext.y = display.contentCenterY
+
+local pretext = display.newText("Yellow = Draw Ball, Blue, Pink adjust grav",
+	display.contentCenterX, display.contentCenterY,"/fonts/Roboto-LightItalic.ttf")
 	pretext.alpha = 1 
 
 local background = display.newImage("/image/ZsfUJx8.jpg")
@@ -19,12 +18,11 @@ local background = display.newImage("/image/ZsfUJx8.jpg")
 	background.alpha = 0
 	background:scale(0.2,0.2)
 
-local barrier = display.newRect(150,690,900,30)
+local barrier = display.newRect(150,540,700,30)
 
 local ball = display.newImage("/image/glassorb1.png")
 	ball.x = 150
 	ball.y = 100
-	ball:scale(0.2,0.2)
 	ball.alpha = 0
 
 physics.addBody(barrier,"static",{friction=0.5, bounce = 0.5})
@@ -63,19 +61,26 @@ local function reset()
 	ball.y = 100
 end
 
+local function addBall()
+	local ball2 = display.newImage("/image/glassorb1.png")
+	ball2.x = 150
+	ball2.y = 100
+	physics.addBody(ball2,"dynamic",{density=7.0, friction = 1.0, bounce = 0.5})
+end
+
 local function col()
 	local gx, gy = physics.getGravity()
-	grav.text = gy 
 	physics.setGravity(0,gy+1)
+	grav.text = gy 
 end
 
 local function col2()
 	local gx, gy = physics.getGravity()
-	grav.text = gy 
 	physics.setGravity(0,gy-1)
+	grav.text = gy
 end
 
-button:addEventListener("tap", reset)
+button:addEventListener("tap", addBall)
 button2:addEventListener("tap", col)
 button3:addEventListener("tap", col2)
 preRec:addEventListener("tap", afterclick)
