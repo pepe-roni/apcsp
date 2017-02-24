@@ -75,6 +75,8 @@ end
 
 local torpedo = display.newImage("/image/838178_bomb_512x512.png")
 	torpedo.x = math.random(1,450)
+	torpedo.y = -950
+	torpedo:rotate(-45)
 
 local function left()
 	background.x = background.x - 30
@@ -85,8 +87,15 @@ local function left()
 	if(background2.x< -300) then
 		background2.x= 800
 	end
-	
+	torpedo.y = torpedo.y + 10
+	if(torpedo.y > 450) then
+		torpedo.x = math.random(1,450)
+		torpedo.y = -500
+	end
+end
 
+local function kek()
+	torpedo.y = -800
 end
 
 local function ryzen()
@@ -96,4 +105,5 @@ end
 
 timer.performWithDelay(1, left, -1)
 Runtime:addEventListener("touch", ryzen)
+torpedo:addEventListener("collision" , kek )
 preRec:addEventListener("tap", afterclick)
