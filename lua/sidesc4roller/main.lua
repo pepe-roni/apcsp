@@ -1,7 +1,7 @@
 
 local physics = require ("physics")
 physics.start()
-physics.setGravity(-9,9)
+physics.setGravity(-10.35,9)
 math.randomseed(os.time())
 
 local ocean = display.newImage("/image/198p6t2d72mvfjpg.jpg")
@@ -64,6 +64,7 @@ local pretext = display.newText("Yellow = Draw Ball, Blue, Pink adjust grav",
 	pretext.alpha = 1 
 --no comment
 
+local endgame = true
 
 local function afterclick()
 	transition.to(pretext, {time = 300, alpha =0})
@@ -71,12 +72,18 @@ local function afterclick()
 	transition.to(background, {time = 1500, alpha = 0.75})
 	transition.to(background2, {time = 1500, alpha = 0.85})
 	transition.to(sprite, {time = 1500, alpha = 0.5})
+	endgame = false
 end
 
 local torpedo = display.newImage("/image/838178_bomb_512x512.png")
 	torpedo.x = math.random(1,450)
 	torpedo.y = -950
 	torpedo:rotate(-45)
+
+local scoreValue = 0
+local score = display.newText(scoreValue,
+	display.contentCenterX+230, display.contentCenterY-100,"/fonts/Roboto-LightItalic.ttf")
+
 
 local function left()
 	background.x = background.x - 30
@@ -87,11 +94,21 @@ local function left()
 	if(background2.x< -300) then
 		background2.x= 800
 	end
-	torpedo.y = torpedo.y + 10
-	if(torpedo.y > 450) then
-		torpedo.x = math.random(1,450)
-		torpedo.y = -500
+
+	if(torpedo.x+35<sprite.x+35 and torpedo.x-35<sprite.x-35) then
+		endgame=true
 	end
+	if(endgame == false) then
+		torpedo.y = torpedo.y + 10.35
+
+		if(torpedo.y > 450) then
+			scoreValue = scoreValue + 1
+			score.text = scoreValue
+			torpedo.x = math.random(1,450)
+			torpedo.y = math.random(-800,-100)
+		end
+	end
+
 end
 
 local function kek()
@@ -99,7 +116,7 @@ local function kek()
 end
 
 local function ryzen()
-	sprite:applyLinearImpulse(45,0,sprite.x, sprite.y)
+	sprite:applyLinearImpulse(77.5,0,sprite.x, sprite.y)
 	ti = 200
 end
 
