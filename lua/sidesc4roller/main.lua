@@ -102,7 +102,9 @@ end
 
 local function reset()
 	scoreValue = 0
+	score.text = 0
 	sprite.x = 0
+	torpedo.x = math.random(1,450)
 	torpedo.y = -950
 	endgame = false
 	goodgame = false
