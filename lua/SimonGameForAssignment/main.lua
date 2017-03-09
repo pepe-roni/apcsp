@@ -99,7 +99,7 @@ end
 local function ballTouched(e)
 	if e.phase == "ended" then
 		
-		-- 
+		-- checks if the game is playing, returning nil if so
 		if GAME_STATE ~= "playing" then
 			return
 		end
@@ -148,7 +148,7 @@ local function setUpBalls()
 	end
 end
 
--- 
+-- supposedly shows the sequence of the game
 local function displaySequence()
 	for i=1, #newSeq do
 		print (newSeq[i])
