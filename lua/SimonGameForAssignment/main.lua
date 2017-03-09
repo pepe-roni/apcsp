@@ -33,9 +33,10 @@ local GAME_STATE = "waiting"
 local LoserSound = audio.loadSound("audio/Loser.aiff")
 local WinnerSound = audio.loadSound("audio/Winner.aiff")
 
-local resetGame -- 
+local resetGame -- initalize resetGame, doesnt really do anything
 
--- 
+--shows the reset text "start game", fades obj in reset touched 
+
 local function showReset(obj)
 	local function resetTouched(e)
 		if e.phase == "ended" then
@@ -53,7 +54,7 @@ local function showReset(obj)
 	resetText:addEventListener ( "touch", resetTouched )
 end
 
--- 
+-- expands the obj (ball) when called or shrinks it 
 local function popBall(b)
 	local function unPop(b)
 		transition.to ( b, { time=100, xScale = 1, yScale = 1, alpha = .9 } )
@@ -62,25 +63,22 @@ local function popBall(b)
 	audio.play ( b.sound )
 end
 
--- 
+-- goes through the newSeq array within a mainBalls array to show a sequence of balls
+-- moves index along , +1, sets the "game mode" as "playing", uses popBall to show
 local function playSequence()
-
 	popBall(mainBalls[newSeq[sequenceIdx]])
-
 	if sequenceIdx < #newSeq then
 		timer.performWithDelay( BOOP_PAUSE, playSequence )
 	else
 		GAME_STATE = "playing"
-		sequenceIdx = 0 --
+		sequenceIdx = 0 --sets index to 0
 		local yourTurn = display.newText( "Your Turn...", centerX, centerY, "Helvetica", 36 )
 		transition.fadeIn(yourTurn, {time=2000, onComplete=function() transition.fadeOut(yourTurn, {time=2000}) end })
 	end
-	
 	sequenceIdx = sequenceIdx + 1
-	
 end
 
--- 
+-- creates a random array "sequence"
 local function createSequence(numColors)
 	local sequence = {}
 	for i = 1, numColors do
@@ -89,14 +87,15 @@ local function createSequence(numColors)
 	return sequence
 end
 
--- 
+-- resets the game by setting index to 1,creating a new set of patterns
 function resetGame()
 	sequenceIdx = 1
 	newSeq = createSequence(numBalls)
 	timer.performWithDelay( 200, playSequence )
 end
 
--- 
+-- pops a ball when it is clicked, checks for correct sequence and decides if it is correct and if the player has won or not
+
 local function ballTouched(e)
 	if e.phase == "ended" then
 		
@@ -107,14 +106,14 @@ local function ballTouched(e)
 
 		popBall(e.target)
 		
-		-- 
+		-- checks if the sequence chosen is the "target.color", provides feedback if correct/wrong, moves index along
 		if newSeq[sequenceIdx] == e.target.color then
 			local star = display.newImage("images/Star.png")
 			star.x = e.target.x
 			star.y = e.target.y - e.target.height
 			transition.fadeOut(star, {time=1000, onComplete=function() display.remove(star) end })
 			sequenceIdx = sequenceIdx + 1
-			-- 
+			-- if the sequence has been completed w/o error
 			if sequenceIdx > #newSeq then
 				GAME_STATE = "won"
 				audio.play ( WinnerSound )
@@ -135,7 +134,7 @@ local function ballTouched(e)
 	end
 end
 
--- 
+-- sets the balls up with init values, such as color and position
 local function setUpBalls()
 	for i=1, 4 do
 		local idx = colorBalls[i]
@@ -158,7 +157,7 @@ local function displaySequence()
 end
 
 -- uncomment to cheat!
---displaySequence()
+displaySequence()
 
 setUpBalls()
 
