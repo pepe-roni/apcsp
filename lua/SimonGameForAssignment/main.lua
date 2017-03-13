@@ -57,9 +57,9 @@ end
 -- expands the obj (ball) when called or shrinks it 
 local function popBall(b)
 	local function unPop(b)
-		transition.to ( b, { time=50, xScale = 1, yScale = 1, alpha = .9 } )
+		transition.to ( b, { time=100/(numBalls*0.5), xScale = 1, yScale = 1, alpha = .9 } )
 	end
-	transition.to ( b, { time=50, xScale = 1.2, yScale = 1.2, alpha = 1, onComplete=unPop} )
+	transition.to ( b, { time=100/(numBalls*0.5), xScale = 1.2, yScale = 1.2, alpha = 1, onComplete=unPop} )
 	audio.play ( b.sound )
 end
 
@@ -68,7 +68,7 @@ end
 local function playSequence()
 	popBall(mainBalls[newSeq[sequenceIdx]])
 	if sequenceIdx < #newSeq then
-		timer.performWithDelay( BOOP_PAUSE, playSequence )
+		timer.performWithDelay( BOOP_PAUSE/(numBalls*0.8), playSequence )
 	else
 		GAME_STATE = "playing"
 		sequenceIdx = 0 --sets index to 0
@@ -130,7 +130,7 @@ local function ballTouched(e)
 			audio.play ( LoserSound )
 			local youLost = display.newText( "You Lost! :(", centerX, centerY, "Helvetica", 36 )
 			showReset(youLost)
-			numBalls = 0
+			
 		end
 		
 	end
