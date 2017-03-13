@@ -24,7 +24,7 @@ math.randomseed( os.time() )
 local colorBalls = {"Blue", "Green", "Red", "Yellow"}
 local newSeq = {}
 local mainBalls = {}
-local numBalls = 6	-- how many in the sequence?
+local numBalls = 1	-- how many in the sequence?
 local sequenceIdx = 1
 
 local BOOP_PAUSE = 1000
@@ -57,9 +57,9 @@ end
 -- expands the obj (ball) when called or shrinks it 
 local function popBall(b)
 	local function unPop(b)
-		transition.to ( b, { time=100, xScale = 1, yScale = 1, alpha = .9 } )
+		transition.to ( b, { time=50, xScale = 1, yScale = 1, alpha = .9 } )
 	end
-	transition.to ( b, { time=100, xScale = 1.2, yScale = 1.2, alpha = 1, onComplete=unPop} )
+	transition.to ( b, { time=50, xScale = 1.2, yScale = 1.2, alpha = 1, onComplete=unPop} )
 	audio.play ( b.sound )
 end
 
@@ -119,6 +119,7 @@ local function ballTouched(e)
 				audio.play ( WinnerSound )
 				local youWon = display.newText( "You Won!", centerX, centerY, "Helvetica", 36 )
 				showReset(youWon)
+				numBalls = numBalls + 1
 			end
 		else
 			local ex = display.newImage("images/X.png")
@@ -129,6 +130,7 @@ local function ballTouched(e)
 			audio.play ( LoserSound )
 			local youLost = display.newText( "You Lost! :(", centerX, centerY, "Helvetica", 36 )
 			showReset(youLost)
+			numBalls = 0
 		end
 		
 	end
