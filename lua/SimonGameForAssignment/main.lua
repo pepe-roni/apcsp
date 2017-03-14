@@ -141,8 +141,8 @@ local function setUpBalls()
 	for i=1, 4 do
 		local idx = colorBalls[i]
 		mainBalls[idx] = display.newImage("images/" .. colorBalls[i] .. ".png" )
-		mainBalls[idx].x = 60 * i + 10
-		mainBalls[idx].y = 90
+		mainBalls[idx].x = 160
+		mainBalls[idx].y = 70* i + 5
 		mainBalls[idx].alpha = .9
 		mainBalls[idx].color = colorBalls[i]
 		mainBalls[idx].sound = audio.loadSound("audio/" .. colorBalls[i] .. ".aiff")
