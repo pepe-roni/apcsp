@@ -96,6 +96,11 @@ end
 
 -- pops a ball when it is clicked, checks for correct sequence and decides if it is correct and if the player has won or not
 
+
+local streak = 0
+local streakText = display.newText(" ",display.contentCenterX, display.contentCenterY+190,"Helvetica",36)
+local level = display.newText(" ",display.contentCenterX, display.contentCenterY+150,"Helvetica",36)
+
 local function ballTouched(e)
 	if e.phase == "ended" then
 		
@@ -119,7 +124,10 @@ local function ballTouched(e)
 				audio.play ( WinnerSound )
 				local youWon = display.newText( "You Won!", centerX, centerY, "Helvetica", 36 )
 				showReset(youWon)
+				level.text = "Level: ".. numBalls
 				numBalls = numBalls + 1
+				streak = streak+1
+				streakText.text = "Streak: " .. streak 
 			end
 		else
 			local ex = display.newImage("images/X.png")
@@ -130,7 +138,8 @@ local function ballTouched(e)
 			audio.play ( LoserSound )
 			local youLost = display.newText( "You Lost! :(", centerX, centerY, "Helvetica", 36 )
 			showReset(youLost)
-			
+			streak = 0
+			streakText.text = "Streak Lost!"
 		end
 		
 	end
